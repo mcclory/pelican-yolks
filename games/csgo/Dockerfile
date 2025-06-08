@@ -59,9 +59,7 @@ FROM csgo-metamod AS csgo-sourcemod
 
 ENV ENV STEAMAPPDIR="/home/container" \
     STEAMAPP="csgo" \
-    SOURCEMOD_VERSION=1.12 
-
-RUN curl -vvv "https://sm.alliedmods.net/smdrop/${SOURCEMOD_VERSION}/sourcemod-latest-linux"
-
-RUN LATESTSM=$(wget -qO- "https://sm.alliedmods.net/smdrop/${SOURCEMOD_VERSION}/sourcemod-latest-linux") && \
-    echo "${LATESTSM}" 
+    SOURCEMOD_VERSION=1.12 \ 
+    LATESTSM=sourcemod-1.12.0-git7207-linux.tar.gz
+    
+RUN wget -qO- "https://sm.alliedmods.net/smdrop/${SOURCEMOD_VERSION}/${LATESTSM}" | tar xvzf - -C "${STEAMAPPDIR}/${STEAMAPP}"
