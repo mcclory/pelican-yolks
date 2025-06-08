@@ -61,4 +61,6 @@ ENV ENV STEAMAPPDIR="/home/container" \
     STEAMAPP="csgo" \
     SOURCEMOD_VERSION=1.12 
     
-RUN LATESTSM=$(wget -qO- https://sm.alliedmods.net/smdrop/${SOURCEMOD_VERSION}/sourcemod-latest-linux) 
+RUN LATESTSM=$(wget -qO- "https://sm.alliedmods.net/smdrop/${SOURCEMOD_VERSION}/sourcemod-latest-linux)" && \
+    echo "${LATESTSM}" && \
+    wget -qO- "https://sm.alliedmods.net/smdrop/${SOURCEMOD_VERSION}/${LATESTSM}" | tar xvzf - -C "${STEAMAPPDIR}/${STEAMAPP}"
