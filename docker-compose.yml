@@ -1,0 +1,28 @@
+services: 
+  steam-cmd: 
+    build: 
+      context: ./steamcmd/debian
+      dockerfile: Dockerfile 
+      target: steam-cmd
+    restart: always
+    image: harbor.ops.mcclory.io/games/steam-cmd-root:latest
+    pull_policy: always 
+  csgo-sourcemod: 
+    build: 
+      context: ./games/source 
+      dockerfile: Dockerfile 
+      target: csgo
+    depends_on: 
+      - steam-cmd
+    restart: always
+    image: harbor.ops.mcclory.io/games/csgo:sourcemod 
+    pull_policy: always
+  csgo-metamod: 
+    build: ./source 
+    restart: always
+    depends_on: 
+      - csgo-sourcemod
+    image: harbor.ops.mcclory.io/games/csgo:metamod 
+    pull_policy: always
+  
+  
