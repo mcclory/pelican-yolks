@@ -15,7 +15,7 @@ services:
     restart: always
     depends_on: 
       - steam-cmd
-    image: harbor.ops.mcclory.io/games/base/steamcmd:latest 
+    image: harbor.ops.mcclory.io/games/base/source:latest 
     pull_policy: always
   source-metamod: 
     build: 
