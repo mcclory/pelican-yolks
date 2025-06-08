@@ -41,7 +41,7 @@ services:
     build: 
       context: ./games/csgo
       dockerfile: Dockerfile
-      target: csgo-base
+      target: csgo
     restart: always
     depends_on: 
       - source
