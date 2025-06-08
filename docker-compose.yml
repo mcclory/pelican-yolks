@@ -17,26 +17,6 @@ services:
       - steam-cmd
     image: harbor.ops.mcclory.io/games/base/source:latest 
     pull_policy: always
-  source-metamod: 
-    build: 
-      context: ./games/source
-      dockerfile: Dockerfile
-      target:  source-metamod
-    restart: always
-    depends_on: 
-      - source
-    image: harbor.ops.mcclory.io/games/base/source:metamod 
-    pull_policy: always
-  source-sourcemod: 
-    build: 
-      context: ./games/source 
-      dockerfile: Dockerfile 
-      target: source-metamod
-    depends_on: 
-      - source-metamod
-    restart: always
-    image: harbor.ops.mcclory.io/games/base/source:sourcemod 
-    pull_policy: always
   csgo-base: 
     build: 
       context: ./games/csgo
