@@ -60,4 +60,4 @@ FROM csgo-metamod AS csgo-sourcemod
 ENV ENV STEAMAPPDIR="/home/container" \
     STEAMAPP="csgo" 
 
-ADD sourcemod-1.12-7207.tar.gz "${STEAMAPPDIR}/${STEAMAPP}"
+ADD sourcemod-1.12-7207.zip "${STEAMAPPDIR}/${STEAMAPP}"
