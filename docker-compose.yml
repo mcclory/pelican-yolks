@@ -5,24 +5,65 @@ services:
       dockerfile: Dockerfile 
       target: steam-cmd
     restart: always
-    image: harbor.ops.mcclory.io/games/steam-cmd-root:latest
+    image: harbor.ops.mcclory.io/games/base/steamcmd:root
     pull_policy: always 
-  csgo-sourcemod: 
+  source:
+    build: 
+      context: ./games/source
+      dockerfile: Dockerfile
+      target: source
+    restart: always
+    depends_on: 
+      - steam-cmd
+    image: harbor.ops.mcclory.io/games/base/steamcmd:latest 
+    pull_policy: always
+  source-metamod: 
+    build: 
+      context: ./games/source
+      dockerfile: Dockerfile
+      target:  source-metamod
+    restart: always
+    depends_on: 
+      - source
+    image: harbor.ops.mcclory.io/games/base/source:metamod 
+    pull_policy: always
+  source-sourcemod: 
     build: 
       context: ./games/source 
       dockerfile: Dockerfile 
-      target: csgo
+      target: source-metamod
     depends_on: 
-      - steam-cmd
+      - source-metamod
     restart: always
-    image: harbor.ops.mcclory.io/games/csgo:sourcemod 
+    image: harbor.ops.mcclory.io/games/base/source:sourcemod 
+    pull_policy: always
+  csgo-base: 
+    build: 
+      context: ./games/csgo
+      dockerfile: Dockerfile
+      target: csgo-base
+    restart: always
+    depends_on: 
+      - source
+    image: harbor.ops.mcclory.io/games/csgo:latest 
     pull_policy: always
   csgo-metamod: 
-    build: ./source 
+    build: 
+      context: ./games/csgo
+      dockerfile: Dockerfile
+      target: csgo-metamod
     restart: always
     depends_on: 
-      - csgo-sourcemod
+      - csgo-base
     image: harbor.ops.mcclory.io/games/csgo:metamod 
     pull_policy: always
-  
-  
+  csgo-sourcemod:
+    build: 
+      context: ./games/csgo
+      dockerfile: Dockerfile
+      target: csgo-sourcemod
+    restart: always
+    depends_on: 
+      - csgo-metamod
+    image: harbor.ops.mcclory.io/games/csgo:sourcemod 
+    pull_policy: always
